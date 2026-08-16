@@ -14,13 +14,13 @@ describe("buildBot handler loader", () => {
     expect(suite.passed).toBeGreaterThan(0);
   });
 
-  it("unknown input falls through to the global fallback", async () => {
+  it("unmatched text gets the photo-search empty state", async () => {
     const suite = await runSpecs(() => buildBot("test-token"), [
       parseBotSpec({
-        name: "unknown text hits the fallback",
+        name: "unknown text gets a useful next step",
         steps: [
           { send: { text: "qwerty" },
-            expect: [{ method: "sendMessage", payload: { text: "Sorry, I didn't understand that. Try /help." } }] },
+            expect: [{ method: "sendMessage", payload: { text: "Не нашёл подходящую тему. Попробуйте написать о моде, городе, портрете, природе, поездках или технологиях." } }] },
         ],
       }),
     ]);

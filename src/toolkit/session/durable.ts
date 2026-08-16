@@ -144,6 +144,22 @@ export class ChatDO {
       }
     }
 
+    // Feature records use explicit keys and never enumerate storage. This is a
+    // small persistent-store primitive for Worker handlers that need durable
+    // domain data beyond an ephemeral grammY session.
+    if (url.pathname.startsWith("/record/")) {
+      const key = `record:${decodeURIComponent(url.pathname.slice("/record/".length))}`;
+      if (request.method === "GET") {
+        const value = await this.state.storage.get<unknown>(key);
+        if (value === undefined) return new Response(null, { status: 204 });
+        return Response.json(value);
+      }
+      if (request.method === "PUT") {
+        await this.state.storage.put(key, await request.json());
+        return new Response(null, { status: 204 });
+      }
+    }
+
     // Schedule a reminder + (re)arm the alarm to the earliest due one.
     if (url.pathname === "/remind" && request.method === "POST") {
       const rem = (await request.json()) as Reminder;
