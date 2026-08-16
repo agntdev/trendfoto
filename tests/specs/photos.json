@@ -1,0 +1,23 @@
+[
+  {
+    "name": "the menu exposes all six photo themes and random choice",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "reply_markup": { "inline_keyboard": [
+            [{ "callback_data": "topic:fashion" }, { "callback_data": "topic:street" }],
+            [{ "callback_data": "topic:portrait" }, { "callback_data": "topic:landscape" }],
+            [{ "callback_data": "topic:travel" }, { "callback_data": "topic:technology" }],
+            [{ "callback_data": "topic:random" }],
+            [{ "callback_data": "menu:help" }]
+          ] } } }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "pagination requests the next collection",
+    "steps": [{ "send": { "callback": "more:landscape" }, "expect": [{ "method": "answerCallbackQuery" }, { "method": "sendChatAction", "payload": { "action": "upload_photo" } }] }]
+  }
+]

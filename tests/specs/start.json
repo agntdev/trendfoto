@@ -1,13 +1,24 @@
 [
   {
-    "name": "/start replies with the welcome + main menu",
+    "name": "/start opens the Russian topic menu",
     "steps": [
       {
         "send": { "text": "/start" },
         "expect": [
           {
             "method": "sendMessage",
-            "payload": { "text": "👋 Welcome! Tap a button below to get started." }
+            "payload": {
+              "text": "Выберите тему или отправьте текстовый запрос — я подберу четыре фотографии.",
+              "reply_markup": {
+                "inline_keyboard": [
+                  [{ "text": "Мода", "callback_data": "topic:fashion" }, { "text": "Уличная фотография", "callback_data": "topic:street" }],
+                  [{ "text": "Портреты", "callback_data": "topic:portrait" }, { "text": "Пейзажи", "callback_data": "topic:landscape" }],
+                  [{ "text": "Путешествия", "callback_data": "topic:travel" }, { "text": "Технологии", "callback_data": "topic:technology" }],
+                  [{ "text": "Случайная тема", "callback_data": "topic:random" }],
+                  [{ "text": "❓ Help", "callback_data": "menu:help" }]
+                ]
+              }
+            }
           }
         ]
       }

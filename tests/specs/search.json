@@ -1,0 +1,10 @@
+[
+  {
+    "name": "text query suggests a matching topic",
+    "steps": [{ "send": { "text": "Нужны фото ночного города" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Подойдёт тема «Уличная фотография»." } }] }]
+  },
+  {
+    "name": "unknown query explains the available topics",
+    "steps": [{ "send": { "text": "квантовая кулинария" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Не нашёл подходящую тему. Попробуйте написать о моде, городе, портрете, природе, поездках или технологиях." } }] }]
+  }
+]
